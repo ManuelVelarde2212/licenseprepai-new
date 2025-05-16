@@ -4,6 +4,7 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 import { QuizProvider } from '@/context/quiz-context';
 import AppLayout from '@/components/layout/app-layout';
+import { ThemeProvider } from '@/components/providers/theme-provider';
 
 const oxanium = Oxanium({
   subsets: ['latin'],
@@ -39,12 +40,19 @@ export default function RootLayout({
       <body 
         className={`${oxanium.variable} ${merriweather.variable} ${firaCode.variable} font-sans antialiased`}
       >
-        <QuizProvider>
-          <AppLayout>
-            {children}
-          </AppLayout>
-        </QuizProvider>
-        <Toaster />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <QuizProvider>
+            <AppLayout>
+              {children}
+            </AppLayout>
+          </QuizProvider>
+          <Toaster />
+        </ThemeProvider>
       </body>
     </html>
   );

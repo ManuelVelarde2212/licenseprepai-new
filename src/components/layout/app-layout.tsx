@@ -21,6 +21,7 @@ import {
 import { LayoutDashboard, FileText, ListPlus, Lightbulb, PanelLeft, Settings, UserCircle } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const navItems = [
   { href: '/', label: 'Dashboard', icon: LayoutDashboard },
@@ -85,7 +86,10 @@ export default function AppLayout({ children }: AppLayoutProps) {
             <SidebarTrigger />
           </div>
           <h1 className="flex-1 text-xl font-semibold">{pageTitle}</h1>
-          <UserMenu />
+          <div className="flex items-center gap-1 sm:gap-2">
+            <ThemeToggle />
+            <UserMenu />
+          </div>
         </header>
         <main className="flex-1 p-4 sm:p-6 bg-background min-h-[calc(100vh-4rem)] md:min-h-[calc(100vh-4.5rem)]">
           {children}

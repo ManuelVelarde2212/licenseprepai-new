@@ -1,45 +1,37 @@
+
 import type { Metadata } from 'next';
-import { Oxanium, Merriweather, Fira_Code } from 'next/font/google';
-import './globals.css';
+import { Open_Sans, IBM_Plex_Mono } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
-import { QuizProvider } from '@/context/quiz-context';
 import AppLayout from '@/components/layout/app-layout';
 import { ThemeProvider } from '@/components/providers/theme-provider';
-
-const oxanium = Oxanium({
-  subsets: ['latin'],
-  variable: '--font-oxanium', // Main sans-serif font
-  display: 'swap',
-});
-
-const merriweather = Merriweather({
-  subsets: ['latin'],
-  weight: ['400', '700'],
-  variable: '--font-merriweather', // Serif font
-  display: 'swap',
-});
-
-const firaCode = Fira_Code({
-  subsets: ['latin'],
-  variable: '--font-fira-code', // Monospace font
-  display: 'swap',
-});
+import './globals.css';
+import { QuizProvider } from '@/context/quiz-context';
 
 export const metadata: Metadata = {
   title: 'PrepAI - USMLE Study Tool',
-  description: 'AI-powered personalized study plans and quiz generation for USMLE preparation.',
+  description: 'AI-powered personalized study plans and quiz generation for USMLE preparation.', // description: 'AI-powered personalized study plans and quiz generation for USMLE preparation.',
 };
 
+const openSans = Open_Sans({
+  subsets: ['latin'],
+  variable: '--font-open-sans',
+  display: 'swap',
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  variable: '--font-ibm-plex-mono',
+  display: 'swap',
+  weight: ['400', '700'],
+});
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body 
-        className={`${oxanium.variable} ${merriweather.variable} ${firaCode.variable} font-sans antialiased`}
-      >
+      <body className={`${openSans.variable} ${ibmPlexMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

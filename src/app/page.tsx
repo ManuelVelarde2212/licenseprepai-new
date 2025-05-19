@@ -5,7 +5,7 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { BarChart, BookOpenText, TrendingUp, Lightbulb, Zap, CheckCircle2, AlertTriangle, LayoutDashboard } from 'lucide-react';
+import { BookOpenText, TrendingUp, Lightbulb, Zap, CheckCircle2, AlertTriangle, LayoutDashboard } from 'lucide-react';
 import type { UserPerformanceMetrics, AIStudyRecommendations } from '@/types';
 import { personalizeStudyPlan } from '@/ai/flows/personalize-study-plan';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -34,11 +34,11 @@ const mockPerformanceData: UserPerformanceMetrics = {
 const chartConfig = {
   score: {
     label: "Score",
-    color: "hsl(var(--chart-1))",
+    color: "hsl(var(--chart-1))", // Updated color
   },
   level: {
     label: "Mastery Level",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-2))", // Updated color
   }
 } satisfies Parameters<typeof ChartContainer>[0]["config"];
 
@@ -124,7 +124,7 @@ export default function DashboardPage() {
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-md">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2"><BarChart className="text-primary" />Mastery Levels</CardTitle>
+            <CardTitle className="flex items-center gap-2">Mastery Levels</CardTitle>
             <CardDescription>Your proficiency in different USMLE topics.</CardDescription>
           </CardHeader>
           <CardContent>

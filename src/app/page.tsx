@@ -90,7 +90,7 @@ export default function DashboardPage() {
   if (!performanceData) {
     return (
       <div className="space-y-6">
-        <PageHeader title="Dashboard" description="Your personalized USMLE study overview." icon={LayoutDashboard} />
+        <PageHeader title="Dashboard" description="Welcome back! Here's your personalized USMLE study overview and key metrics." icon={LayoutDashboard} />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <Skeleton className="h-40 w-full" />
           <Skeleton className="h-40 w-full" />
@@ -106,7 +106,7 @@ export default function DashboardPage() {
   
   return (
     <div className="space-y-6">
-      <PageHeader title="Dashboard" description="Your personalized USMLE study overview." icon={LayoutDashboard} />
+      <PageHeader title="Dashboard" description="Welcome back! Here's your personalized USMLE study overview and key metrics." icon={LayoutDashboard} />
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="shadow-lg">
@@ -230,3 +230,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+

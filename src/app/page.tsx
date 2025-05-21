@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useEffect, useState, useMemo } from 'react';
@@ -5,7 +6,7 @@ import { PageHeader } from '@/components/page-header';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
-import { BookOpenText, TrendingUp, Lightbulb, Zap, CheckCircle2, AlertTriangle, LayoutDashboard } from 'lucide-react';
+import { BookOpenText, TrendingUp, Lightbulb, Zap, CheckCircle2, AlertTriangle, LayoutDashboard, Flame } from 'lucide-react';
 import type { UserPerformanceMetrics, AIStudyRecommendations } from '@/types';
 import { personalizeStudyPlan } from '@/ai/flows/personalize-study-plan';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -16,6 +17,7 @@ import { ClientOnly } from '@/components/client-only';
 
 const mockPerformanceData: UserPerformanceMetrics = {
   readinessScore: 78,
+  dayStreak: 12,
   masteryLevels: [
     { topic: 'Cardiology', level: 85 },
     { topic: 'Pulmonology', level: 70 },
@@ -34,11 +36,11 @@ const mockPerformanceData: UserPerformanceMetrics = {
 const chartConfig = {
   score: {
     label: "Score",
-    color: "hsl(var(--chart-1))", // Updated color
+    color: "hsl(var(--chart-1))",
   },
   level: {
     label: "Mastery Level",
-    color: "hsl(var(--chart-2))", // Updated color
+    color: "hsl(var(--chart-2))",
   }
 } satisfies Parameters<typeof ChartContainer>[0]["config"];
 
@@ -50,17 +52,16 @@ export default function DashboardPage() {
   const [performanceData, setPerformanceData] = useState<UserPerformanceMetrics | null>(null);
 
   useEffect(() => {
-    // Simulate fetching initial performance data
     setPerformanceData(mockPerformanceData);
 
     async function fetchRecommendations() {
       setIsLoadingRecommendations(true);
       setErrorRecommendations(null);
       try {
-        // For AI call, user performance data needs to be stringified
         const userPerformanceString = JSON.stringify({
           scores: mockPerformanceData.masteryLevels,
           overallReadiness: mockPerformanceData.readinessScore,
+          dayStreak: mockPerformanceData.dayStreak,
         });
         const learningGoalsString = "Improve overall USMLE score, focusing on weaker areas like Renal and Pulmonology. Aim for 85+ readiness score.";
         
@@ -90,7 +91,10 @@ export default function DashboardPage() {
     return (
       <div className="space-y-6">
         <PageHeader title="Dashboard" description="Your personalized USMLE study overview." icon={LayoutDashboard} />
-        <Skeleton className="h-32 w-full" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <Skeleton className="h-40 w-full" />
+          <Skeleton className="h-40 w-full" />
+        </div>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <Skeleton className="h-48 w-full" />
           <Skeleton className="h-48 w-full" />
@@ -104,22 +108,44 @@ export default function DashboardPage() {
     <div className="space-y-6">
       <PageHeader title="Dashboard" description="Your personalized USMLE study overview." icon={LayoutDashboard} />
 
-      <Card className="shadow-lg">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Zap className="text-primary" />
-            Overall Readiness
-          </CardTitle>
-          <CardDescription>Your current estimated USMLE readiness score.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="text-5xl font-bold text-primary mb-2">{performanceData.readinessScore}%</div>
-          <Progress value={performanceData.readinessScore} indicatorClassName={readinessColor} className="h-4" />
-        </CardContent>
-        <CardFooter>
-          <p className="text-sm text-muted-foreground">Keep up the great work and focus on targeted reviews!</p>
-        </CardFooter>
-      </Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Zap className="text-primary" />
+              Overall Readiness
+            </CardTitle>
+            <CardDescription>Your current estimated USMLE readiness score.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-5xl font-bold text-primary mb-2">{performanceData.readinessScore}%</div>
+            <Progress value={performanceData.readinessScore} indicatorClassName={readinessColor} className="h-4" />
+          </CardContent>
+          <CardFooter>
+            <p className="text-sm text-muted-foreground">Keep up the great work and focus on targeted reviews!</p>
+          </CardFooter>
+        </Card>
+
+        <Card className="shadow-lg">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <Flame className="text-orange-500" />
+              Day Streak
+            </CardTitle>
+            <CardDescription>Your current consecutive study day streak.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="text-5xl font-bold text-orange-500 mb-2 flex items-center">
+              {performanceData.dayStreak} 
+              <span className="text-2xl text-muted-foreground ml-2">days</span>
+            </div>
+             <p className="text-sm text-muted-foreground">Keep the fire burning!</p>
+          </CardContent>
+           <CardFooter>
+            <p className="text-xs text-muted-foreground">Studying consistently builds strong habits.</p>
+          </CardFooter>
+        </Card>
+      </div>
 
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <Card className="shadow-md">

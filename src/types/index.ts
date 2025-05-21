@@ -32,6 +32,7 @@ export interface GeneratedQuiz {
 
 export interface UserPerformanceMetrics {
   readinessScore: number; // 0-100
+  dayStreak: number; // Number of consecutive days studied
   masteryLevels: Array<{
     topic: string;
     level: number; // 0-100

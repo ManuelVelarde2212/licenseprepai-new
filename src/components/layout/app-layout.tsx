@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from 'next/link';
@@ -74,9 +75,11 @@ export default function AppLayout({ children }: AppLayoutProps) {
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter className="p-4 mt-auto border-t border-sidebar-border">
-          <SidebarMenuButton tooltip={{ children: "Settings", className: "font-sans"}}>
-            <Settings />
-            <span>Settings</span>
+          <SidebarMenuButton asChild tooltip={{ children: "Settings", className: "font-sans"}}>
+            <Link href="/settings">
+              <Settings />
+              <span>Settings</span>
+            </Link>
           </SidebarMenuButton>
         </SidebarFooter>
       </Sidebar>
@@ -121,13 +124,17 @@ function UserMenu() {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          <UserCircle className="mr-2 h-4 w-4" />
-          <span>Profile</span>
+        <DropdownMenuItem asChild>
+          <Link href="/settings">
+            <UserCircle className="mr-2 h-4 w-4" />
+            <span>Profile</span>
+          </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Settings className="mr-2 h-4 w-4" />
-          <span>Settings</span>
+        <DropdownMenuItem asChild>
+          <Link href="/settings">
+            <Settings className="mr-2 h-4 w-4" />
+            <span>Settings</span>
+          </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
@@ -137,3 +144,4 @@ function UserMenu() {
     </DropdownMenu>
   );
 }
+
